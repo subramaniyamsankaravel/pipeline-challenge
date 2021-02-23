@@ -8,19 +8,20 @@ pipeline {
     stages {
         stage('Compile'){
                 steps{
+                    dir(/var/jenkins_home/workspace/pipeline-challenge/calculator){
                      
                         sh 'echo Compile'
                          sh 'mvn  compile'
-                     
+                    }
                 }
             
         }
          stage('Test'){
                  steps {
-                     
+                      dir(/var/jenkins_home/workspace/pipeline-challenge/calculator){
                          sh 'echo Test'
                          sh 'mvn test'
-                      
+                      }
                  }
                  post{
                      always {
@@ -30,10 +31,11 @@ pipeline {
             }
             stage('Build'){
             steps {
-               
+                dir(/var/jenkins_home/workspace/pipeline-challenge/calculator){
                 
                         sh 'echo Build'
                         sh 'mvn  package'
+                }
                  
             }
             
@@ -46,12 +48,12 @@ pipeline {
              }
         stage('Sonar Analysis'){
             steps{
-                 
+                  dir(/var/jenkins_home/workspace/pipeline-challenge/calculator){
                     withSonarQubeEnv('Sonar'){
                         withMaven(maven:'maven'){
                             sh 'mvn sonar:sonar'
                         }
-                        
+                    }
                   }
                 
             }
