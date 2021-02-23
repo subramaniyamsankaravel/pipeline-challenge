@@ -5,6 +5,23 @@ pipeline {
       args '-v /root/.m2:/root/.m2/calculator'
     }
   }
+    stage('Clean'){
+            steps{
+                dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
+                    sh 'echo Clean'
+                    sh 'mvn  clean'
+                }
+            }
+        }
+        stage('Validate'){
+                steps{
+                     dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
+                
+                        sh 'mvn  validate'
+                     }
+                }
+            
+         }
     stages {
         stage('Compile'){
                 steps{
@@ -14,6 +31,19 @@ pipeline {
                          sh 'mvn  compile'
                     }
                 }
+            
+        }
+        stage('Sonar Analysis'){
+            steps{
+                 dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
+                    withSonarQubeEnv('sonar-chal'){
+                        withMaven(maven:'maven'){
+                            sh 'mvn sonar:sonar'
+                        }
+                        
+                  }
+                }
+            }
             
         }
          stage('Test'){
@@ -46,18 +76,6 @@ pipeline {
                      }
                 }
              }
-        stage('Sonar Analysis'){
-            steps{
-                  dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
-                    withSonarQubeEnv('Sonar'){
-                        withMaven(maven:'maven'){
-                            sh 'mvn sonar:sonar'
-                        }
-                    }
-                  }
-                
-            }
-            
-        }
+       
     }
 }
