@@ -35,11 +35,12 @@ pipeline {
             
         }
         stage('Sonar Analysis'){
+            agent any
             steps{
                  dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
                     withSonarQubeEnv('sonar'){
                         withMaven(maven:'maven'){
-                            sh 'mvn sonar:sonar'
+                            sh 'mvn clean package sonar:sonar'
                         }
                         
                   }
