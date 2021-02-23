@@ -7,19 +7,19 @@ pipeline {
     stages {
         stage('Compile'){
                 steps{
-                     {
+                     
                         sh 'echo Compile'
                          sh 'mvn  compile'
-                     }
+                     
                 }
             
         }
          stage('Test'){
                  steps {
-                     {
+                     
                          sh 'echo Test'
                          sh 'mvn test'
-                      }
+                      
                  }
                  post{
                      always {
@@ -29,11 +29,11 @@ pipeline {
             }
             stage('Build'){
             steps {
-               {
+               
                 
                         sh 'echo Build'
                         sh 'mvn  package'
-                 }
+                 
             }
             
             post {
