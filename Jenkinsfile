@@ -77,7 +77,32 @@ pipeline {
                     archiveArtifacts 'calculator/target/*.jar'
                      }
                 }
+               
              }
-       
+        stage('collect artifact'){
+                steps{
+                    archiveArtifacts artifacts: 'calculator/target/*.jar', followSymlinks: false
+                 }
+            }  
+        stage('deploy to artifactory')
+         {
+            steps{
+     
+                rtUpload (
+                    serverId: 'ARTIFACTORY-SERVER',
+                    spec: '''{
+                    "files": [
+                         {
+                             "pattern": "calculator/target/*.jar",
+                             "target": "art-doc-dev-loc"
+                        }
+                     ]
+                }''',
+ 
+  
+
+)
+     }}
+     
     }
 }
