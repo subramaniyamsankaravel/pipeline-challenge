@@ -12,11 +12,11 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
+  			<groupId>junit</groupId>     <!-- NOT org.junit here -->
+  			<artifactId>junit-dep</artifactId>
+  			<version>4.8.2</version>
+  			<scope>test</scope>
+			</dependency>
 		<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core-java8 -->
 		<dependency>
 			<groupId>org.assertj</groupId>
