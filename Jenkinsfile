@@ -5,7 +5,9 @@ pipeline {
       args '-v /root/.m2:/root/.m2/calculator'
     }
   }
-    stage('Clean'){
+    
+    stages {
+        stage('Clean'){
             steps{
                 dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
                     sh 'echo Clean'
@@ -22,7 +24,6 @@ pipeline {
                 }
             
          }
-    stages {
         stage('Compile'){
                 steps{
                     dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
