@@ -42,7 +42,7 @@ pipeline {
             post {
                 always {
                     //junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'SimpleCalculator/target/*.jar'
+                    archiveArtifacts 'calculator/target/*.jar'
                      }
                 }
              }
