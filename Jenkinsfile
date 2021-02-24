@@ -48,6 +48,19 @@ pipeline {
             }
             
         }
+        stage('SonarQube Quality Gate') { 
+            steps{
+                timeout(time: 1, unit: 'HOURS') { 
+                    script{
+                        def qg = waitForQualityGate() 
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                         }
+                    }
+                    
+                }
+            }
+        }
          stage('Test'){
                  steps {
                       dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
@@ -104,5 +117,20 @@ pipeline {
 )
      }}
      
+    }
+    post{
+        success{
+            echo 'I succeeded!'
+            mail to:'subramaniyam11981@gmail.com',
+            subject:"Pipeline Succeeded: ${currentBuild.fullDisplayName}",
+            body:"Built is success with ${env.BUILD_URL}"
+        }
+        failure{
+            echo 'I failed!'
+            mail to:'subramaniyam11981@gmail.com',
+            subject:"Pipeline Failed: ${currentBuild.fullDisplayName}",
+            body:"Built is failed with ${env.BUILD_URL}"
+        }
+
     }
 }
