@@ -120,17 +120,13 @@ pipeline {
    
 }
     post{
-        success{
-            echo 'I succeeded!'
-            mail to:'roshenreji.roshenreji@gmail.com',
-            subject:"Pipeline Succeeded: ${currentBuild.fullDisplayName}",
-            body:"Built is success with ${env.BUILD_URL}"
+        sshagent(['4caf8f9d-4507-4358-a814-4a2866505100']){
+                    sh 'scp -r /var/jenkins_home/workspace/pipeline-aws/CodingChallenge-2/target/*.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
         }
+        
         failure{
             echo 'I failed!'
-            mail to:'roshenreji.roshenreji@gmail.com',
-            subject:"Pipeline Failed: ${currentBuild.fullDisplayName}",
-            body:"Built is failed with ${env.BUILD_URL}"
+           
         }
 
     }
