@@ -117,17 +117,13 @@ pipeline {
 )
      }}
      
-   
+   stage ('ssh-test'){
+        steps{
+          sshagent(['4caf8f9d-4507-4358-a814-4a2866505100']){
+             sh 'scp -r /var/jenkins_home/workspace/pipeline-challenge/calculator/target/*.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
+            }
+            }
+            }
 }
-    post{
-        sshagent(['4caf8f9d-4507-4358-a814-4a2866505100']){
-                    sh 'scp -r /var/jenkins_home/workspace/pipeline-challenge/calculator/target/*.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
-        }
-        
-        failure{
-            echo 'I failed!'
-           
-        }
-
-    }
+    
 }
