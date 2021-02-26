@@ -5,7 +5,7 @@ pipeline {
     }
   }
     
- stages
+    stages{
         
         stage('Clean'){
             steps{
@@ -102,6 +102,6 @@ pipeline {
             }
             }
             }
-}
+
 } 
 }
