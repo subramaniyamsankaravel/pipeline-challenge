@@ -5,19 +5,11 @@ pipeline {
     }
   }
     
- stages{
-          stage('Fetch') {
-            steps {
-               sh 'echo $JOB_NAME'
-                sh 'echo $BUILD_NUMBER'
-                sh 'echo Fetch'
-               git branch: 'master', url: 'https://github.com/roshenreji/SpringChallenge.git'
-            }
-        }
+ stages
         
         stage('Clean'){
             steps{
-                dir("/var/jenkins_home/workspace/pipeline-aws/CodingChallenge-2"){
+                dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
                     sh 'echo Clean'
                     sh 'mvn  clean'
                 }
@@ -25,7 +17,7 @@ pipeline {
         }
         stage('Validate'){
                 steps{
-                     dir("/var/jenkins_home/workspace/pipeline-aws/CodingChallenge-2"){
+                     dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
                 
                         sh 'mvn  validate'
                      }
@@ -34,7 +26,7 @@ pipeline {
          }
         stage('Compile'){
                 steps{
-                     dir("/var/jenkins_home/workspace/pipeline-aws/CodingChallenge-2"){
+                     dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
                  
                         sh 'echo Compile'
                          sh 'mvn  compile'
@@ -46,7 +38,7 @@ pipeline {
         
              stage('Test'){
                  steps {
-                      dir("/var/jenkins_home/workspace/pipeline-aws/CodingChallenge-2"){
+                      dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
                          sh 'echo Test'
                          sh 'mvn test'
                       }
@@ -60,7 +52,7 @@ pipeline {
 
             stage('Sonar Analysis'){
             steps{
-                 dir("/var/jenkins_home/workspace/pipeline-aws/CodingChallenge-2"){
+                 dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
                     withSonarQubeEnv('Sonar'){
                         withMaven(maven:'maven'){
                             sh 'mvn sonar:sonar'
@@ -87,7 +79,7 @@ pipeline {
         }
             stage('Build'){
             steps {
-                 dir("/var/jenkins_home/workspace/pipeline-aws/CodingChallenge-2"){
+                 dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
                 
                         sh 'echo Build'
                         sh 'mvn  package -Dbuild.number=-${BUILD_NUMBER}'
@@ -97,7 +89,7 @@ pipeline {
             post {
                 always {
                     //junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'pipeline-aws/CodingChallenge-2/target/*.jar'
+                    archiveArtifacts 'pipeline-challenge/calculator/target/*.jar'
                      }
                 }
              }
@@ -105,7 +97,7 @@ pipeline {
    stage ('ssh-test'){
         steps{
           sshagent(['4caf8f9d-4507-4358-a814-4a2866505100']){
-             sh 'scp -r var/jenkins_home/workspace/pipeline-challenge/calculator/target/*.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
+             sh 'scp -r /var/jenkins_home/workspace/pipeline-challenge/calculator/target/*.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
             }
             }
             }
