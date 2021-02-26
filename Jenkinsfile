@@ -53,7 +53,7 @@ pipeline {
             stage('Sonar Analysis'){
             steps{
                  dir("/var/jenkins_home/workspace/pipeline-challenge/calculator"){
-                    withSonarQubeEnv('Sonar'){
+                    withSonarQubeEnv('sonar'){
                         withMaven(maven:'maven'){
                             sh 'mvn sonar:sonar'
                         }
