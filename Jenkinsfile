@@ -89,7 +89,7 @@ pipeline {
             post {
                 always {
                     //junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'pipeline-challenge/calculator/target/*.jar'
+                    archiveArtifacts 'calculator/target/*.jar'
                      }
                 }
              }
