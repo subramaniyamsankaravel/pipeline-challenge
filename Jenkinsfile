@@ -9,8 +9,8 @@ pipeline {
         stage('Clean'){
             steps{
                 dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
-                    sh 'echo Clean'
-                    sh 'mvn  clean'
+                    bat 'echo Clean'
+                    bat 'mvn  clean'
                 }
             }
         }
@@ -18,7 +18,7 @@ pipeline {
                 steps{
                      dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
                 
-                        sh 'mvn  validate'
+                        bat 'mvn  validate'
                      }
                 }
             
@@ -27,8 +27,8 @@ pipeline {
                 steps{
                      dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
                  
-                        sh 'echo Compile'
-                         sh 'mvn  compile'
+                        bat 'echo Compile'
+                         bat 'mvn  compile'
                      }
                 }
             
