@@ -8,7 +8,7 @@ pipeline {
         
         stage('Clean'){
             steps{
-                dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
+                dir("C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator"){
                     bat 'echo Clean'
                     bat 'mvn  clean'
                 }
@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Validate'){
                 steps{
-                     dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
+                     dir("C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator"){
                 
                         bat 'mvn  validate'
                      }
@@ -25,7 +25,7 @@ pipeline {
          }
         stage('Compile'){
                 steps{
-                     dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
+                     dir("C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator"){
                  
                         bat 'echo Compile'
                          bat 'mvn  compile'
@@ -37,7 +37,7 @@ pipeline {
         
              stage('Test'){
                  steps {
-                      dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
+                      dir("C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator"){
                          bat 'echo Test'
                          bat 'mvn test'
                       }
@@ -47,7 +47,7 @@ pipeline {
 
             stage('Sonar Analysis'){
             steps{
-                 dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
+                 dir("C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator"){
                     withSonarQubeEnv('sonar'){
                         withMaven(maven:'maven'){
                             bat 'mvn sonar:sonar'
@@ -74,7 +74,7 @@ pipeline {
         }
             stage('Build'){
             steps {
-                 dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
+                 dir("C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator"){
                 
                         bat 'echo Build'
                         bat 'mvn  package -Dbuild.number=-${BUILD_NUMBER}'
@@ -93,7 +93,7 @@ pipeline {
         steps{
           sshagent(['4caf8f9d-4507-4358-a814-4a2866505100']){
             //sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.216.159.12 pwd'
-            bat 'scp -r C:/Users/Welcome/jenkins/CI-endtoend/calculator/target/calculator-0.0.1-SNAPSHOT.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
+            bat 'scp -r C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator/target/calculator-0.0.1-SNAPSHOT.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
             }
             }
             }
