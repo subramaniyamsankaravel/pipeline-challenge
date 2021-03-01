@@ -38,8 +38,8 @@ pipeline {
              stage('Test'){
                  steps {
                       dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
-                         sh 'echo Test'
-                         sh 'mvn test'
+                         bat 'echo Test'
+                         bat 'mvn test'
                       }
                  }
       
@@ -50,7 +50,7 @@ pipeline {
                  dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
                     withSonarQubeEnv('sonar'){
                         withMaven(maven:'maven'){
-                            sh 'mvn sonar:sonar'
+                            bat 'mvn sonar:sonar'
                         }
                         
                   }
@@ -76,8 +76,8 @@ pipeline {
             steps {
                  dir("C:/Users/Welcome/jenkins/CI-endtoend/calculator"){
                 
-                        sh 'echo Build'
-                        sh 'mvn  package -Dbuild.number=-${BUILD_NUMBER}'
+                        bat 'echo Build'
+                        bat 'mvn  package -Dbuild.number=-${BUILD_NUMBER}'
                  }
             }
             
@@ -93,7 +93,7 @@ pipeline {
         steps{
           sshagent(['4caf8f9d-4507-4358-a814-4a2866505100']){
             //sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.216.159.12 pwd'
-            sh 'scp -r C:/Users/Welcome/jenkins/CI-endtoend/calculator/target/calculator-0.0.1-SNAPSHOT.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
+            bat 'scp -r C:/Users/Welcome/jenkins/CI-endtoend/calculator/target/calculator-0.0.1-SNAPSHOT.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
             }
             }
             }
