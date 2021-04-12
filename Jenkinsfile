@@ -45,33 +45,7 @@ pipeline {
       
             }
 
-            stage('Sonar Analysis'){
-            steps{
-                 dir("C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator"){
-                    withSonarQubeEnv('sonar'){
-                        withMaven(maven:'maven'){
-                            bat 'mvn sonar:sonar'
-                        }
-                        
-                  }
-                }
-            }
             
-        }
-
-        stage('SonarQube Quality Gate') { 
-            steps{
-                timeout(time: 1, unit: 'HOURS') { 
-                    script{
-                        def qg = waitForQualityGate() 
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                         }
-                    }
-                    
-                }
-            }
-        }
             stage('Build'){
             steps {
                  dir("C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator"){
@@ -89,14 +63,7 @@ pipeline {
                 }
              }
      
-   stage ('ssh-test'){
-        steps{
-          sshagent(['4caf8f9d-4507-4358-a814-4a2866505100']){
-            //sh 'ssh -o StrictHostKeyChecking=no ubuntu@18.216.159.12 pwd'
-            bat 'scp -r C:/WINDOWS/system32/config/systemprofile/AppData/Local/Jenkins/.jenkins/workspace/CI-endtoend/calculator/target/calculator-0.0.1-SNAPSHOT.jar ubuntu@18.216.159.12:/home/ubuntu/artifacts'
-            }
-            }
-            }
+   
 
 } 
 }
